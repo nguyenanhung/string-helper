@@ -1,0 +1,38 @@
+{
+    "type": "library",
+    "name": "nguyenanhung/string-helper",
+    "description": "String Helper, basic, simple and light",
+    "keywords": [
+        "helper",
+        "html",
+        "php"
+    ],
+    "homepage": "https://github.com/nguyenanhung/html-helper",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "paragonie/random_compat": "^2.0",
+        "danielstjules/stringy": "^3.1",
+        "ext-ctype": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\Libraries\\String\\": "src/"
+        },
+        "files": [
+            "helpers/ci_string_helper.php"
+        ]
+    }
+}
