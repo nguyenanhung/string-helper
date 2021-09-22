@@ -25,7 +25,8 @@
         "ext-mbstring": "*",
         "paragonie/random_compat": "^2.0",
         "danielstjules/stringy": "^3.1",
-        "ext-ctype": "*"
+        "ext-ctype": "*",
+        "ext-iconv": "*"
     },
     "autoload": {
         "psr-4": {
