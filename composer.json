@@ -23,10 +23,10 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "paragonie/random_compat": "^2.0",
-        "danielstjules/stringy": "^3.1",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "paragonie/random_compat": ">=2.0",
+        "danielstjules/stringy": "^3.1"
     },
     "autoload": {
         "psr-4": {
