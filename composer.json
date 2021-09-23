@@ -7,7 +7,7 @@
         "html",
         "php"
     ],
-    "homepage": "https://github.com/nguyenanhung/html-helper",
+    "homepage": "https://github.com/nguyenanhung/string-helper",
     "license": "MIT",
     "minimum-stability": "stable",
     "authors": [
