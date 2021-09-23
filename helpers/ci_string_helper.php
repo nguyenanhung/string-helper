@@ -74,7 +74,7 @@ if (!function_exists('trim_slashes')) {
      *
      * @return    string
      */
-    function trim_slashes($str)
+    function trim_slashes($str): string
     {
         return trim($str, '/');
     }
@@ -118,7 +118,7 @@ if (!function_exists('strip_quotes')) {
      *
      * @return    string
      */
-    function strip_quotes($str)
+    function strip_quotes($str): string
     {
         return str_replace(['"', "'"], '', $str);
     }
@@ -136,7 +136,7 @@ if (!function_exists('quotes_to_entities')) {
      *
      * @return    string
      */
-    function quotes_to_entities($str)
+    function quotes_to_entities($str): string
     {
         return str_replace(["\'", "\"", "'", '"'], ["&#39;", "&quot;", "&#39;", "&quot;"], $str);
     }
@@ -161,7 +161,7 @@ if (!function_exists('reduce_double_slashes')) {
      *
      * @return    string
      */
-    function reduce_double_slashes($str)
+    function reduce_double_slashes($str): string
     {
         return preg_replace('#(^|[^:])//+#', '\\1/', $str);
     }
@@ -187,7 +187,7 @@ if (!function_exists('reduce_multiples')) {
      *
      * @return    string
      */
-    function reduce_multiples($str, $character = ',', $trim = false)
+    function reduce_multiples($str, $character = ',', $trim = false): string
     {
         $str = preg_replace('#' . preg_quote($character, '#') . '{2,}#', $character, $str);
 
@@ -206,7 +206,7 @@ if (!function_exists('random_string')) {
      *
      * @return    string
      */
-    function random_string($type = 'alnum', $len = 8)
+    function random_string($type = 'alnum', $len = 8): string
     {
         switch ($type) {
             case 'basic':
@@ -255,7 +255,7 @@ if (!function_exists('increment_string')) {
      *
      * @return    string
      */
-    function increment_string($str, $separator = '_', $first = 1)
+    function increment_string(string $str, string $separator = '_', $first = 1): string
     {
         preg_match('/(.+)' . preg_quote($separator, '/') . '([0-9]+)$/', $str, $match);
 
@@ -275,7 +275,7 @@ if (!function_exists('alternator')) {
      *
      * @return    string
      */
-    function alternator()
+    function alternator(): string
     {
         static $i;
 
@@ -305,7 +305,7 @@ if (!function_exists('repeater')) {
      *
      * @return    string
      */
-    function repeater($data, $num = 1)
+    function repeater(string $data, int $num = 1): string
     {
         return ($num > 0) ? str_repeat($data, $num) : '';
     }
@@ -325,7 +325,7 @@ if (!function_exists('remove_invisible_characters_string')) {
      *
      * @return    string
      */
-    function remove_invisible_characters_string($str, $url_encoded = true)
+    function remove_invisible_characters_string($str, $url_encoded = true): string
     {
         $nonDisplay = array();
         // every control character except newline (dec 10),

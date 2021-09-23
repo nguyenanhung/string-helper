@@ -56,7 +56,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @see    http://stackoverflow.com/a/834355  MrHus' answer to "startsWith()
          *    and endsWith() functions in PHP" on StackOverflow
          */
-        public static function endsWith($haystack, $needle)
+        public static function endsWith(string $haystack, string $needle): bool
         {
             // $endsWith = false;
             // if $haystack and $needle are passed
@@ -113,7 +113,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @see    \nguyenanhung\Libraries\String\Str::iEndsWith()  case-sensitive version
          */
-        public static function iEndsWith($haystack, $needle)
+        public static function iEndsWith(string $haystack, string $needle): bool
         {
             //  $endsWith = null;
 
@@ -153,7 +153,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @return bool
          */
-        public static function is_bool($string)
+        public static function is_bool($string): bool
         {
             return self::isBool($string);
         }
@@ -180,7 +180,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @return  bool
          */
-        public static function isBool($string)
+        public static function isBool(string $string): bool
         {
             return is_string($string)
                    && in_array(strtolower($string), array('true', 'false', 'yes', 'no', 'on', 'off'));
@@ -210,7 +210,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @see     \nguyenanhung\Libraries\String\Str::startsWith()  case-sensitive version
          */
-        public static function iStartsWith($haystack, $needle)
+        public static function iStartsWith(string $haystack, string $needle): bool
         {
             // $startsWith = null;
 
@@ -280,7 +280,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @throws  InvalidArgumentException  if the number of required characters (as defined
          *    in the $rules array) exceeds the $length
          */
-        public static function password($length = 8, $rules = array('lower' => 1, 'upper' => 1, 'number' => 1, 'symbol' => 1))
+        public static function password(int $length = 8, array $rules = array('lower' => 1, 'upper' => 1, 'number' => 1, 'symbol' => 1)): string
         {
             $password = '';
 
@@ -351,7 +351,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @throws  InvalidArgumentException  if $charsets is not a string or array
          * @throws  InvalidArgumentException  if a given $charset is not a valid charset
          */
-        public static function rand($length, $charsets = array('alpha', 'number', 'symbol'))
+        public static function rand(int $length, $charsets = array('alpha', 'number', 'symbol')): string
         {
             $rand = '';
 
@@ -426,7 +426,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @copyright: 713uk13m <dev@nguyenanhung.com>
          * @time     : 09/22/2021 46:12
          */
-        public static function random($length = 16, $type = 'alnum')
+        public static function random(int $length = 16, string $type = 'alnum')
         {
             $string = '';
             switch ($type) {
@@ -442,13 +442,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 case 'alpha':
                     $data = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                     while ((strlen($string)) < $length) {
-                        $string .= $data[mt_rand(0, strlen($data) - 1)];
+                        $string .= $data[random_int(0, strlen($data) - 1)];
                     }
                     break;
                 case 'numeric':
                     $data = "01234567890";
                     while ((strlen($string)) < $length) {
-                        $string .= $data[mt_rand(0, 9)];
+                        $string .= $data[random_int(0, 9)];
                     }
                     break;
                 case 'nozero':
@@ -490,7 +490,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @time  : 9/29/18 11:25
          *
          */
-        public static function randomString($type = 'alnum', $len = 8)
+        public static function randomString($type = 'alnum', $len = 8): string
         {
             switch ($type) {
                 case 'basic':
@@ -551,7 +551,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *    string on first occurrence of a letter" on StackOverflow (version using Regex
          *    lookahead)
          */
-        public static function splitOnFirstAlpha($string)
+        public static function splitOnFirstAlpha(string $string): array
         {
             // $pieces = array();
 
@@ -606,7 +606,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @see    http://stackoverflow.com/a/834355  MrHus' answer to "startsWith() and
          *    endsWith() functions in PHP" on StackOverflow
          */
-        public static function startsWith($haystack, $needle)
+        public static function startsWith(string $haystack, string $needle): bool
         {
             // $startsWith = false;
 
@@ -674,7 +674,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @see     http://www.php.net/manual/en/function.ini-get.php  ini_get() man page
          */
-        public static function strToBytes($string)
+        public static function strToBytes(string $string)
         {
             // $val = false;
 
@@ -726,7 +726,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @copyright: 713uk13m <dev@nguyenanhung.com>
          * @time     : 08/18/2021 51:39
          */
-        public static function upperCase($value)
+        public static function upperCase($value): string
         {
             return mb_strtoupper($value, 'UTF-8');
         }
@@ -741,7 +741,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @copyright: 713uk13m <dev@nguyenanhung.com>
          * @time     : 08/18/2021 51:28
          */
-        public static function lowerCase($value)
+        public static function lowerCase($value): string
         {
             return mb_strtolower($value, 'UTF-8');
         }
@@ -757,7 +757,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @return bool|false|mixed|string|string[]|null
          */
-        public static function snakeCase($value, $delimiter = '_')
+        public static function snakeCase($value, string $delimiter = '_')
         {
             $key = $value;
             if (isset(static::$snakeCache[$key][$delimiter])) {
@@ -789,7 +789,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @throws  BadMethodCallException    if $string is empty
          * @throws  InvalidArgumentException  if $string is not a string
          */
-        public static function strToCamelCase($string)
+        public static function strToCamelCase(string $string): string
         {
             // if $string is given
             if ($string !== null) {
@@ -888,7 +888,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @return string|string[]|null
          */
-        public static function camelizeCase($str, $encoding = 'UTF-8')
+        public static function camelizeCase($str, string $encoding = 'UTF-8')
         {
             $str = str_replace(array('_', '-'), ' ', strtolower(trim($str)));
             $str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
@@ -926,7 +926,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *    ramblings" (edited to find closest break *before* limit and truncate string
          *    exactly if break does not exist)
          */
-        public static function truncate($string, $limit, $break = ' ', $pad = '...')
+        public static function truncate($string, $limit, string $break = ' ', string $pad = '...'): string
         {
             // $truncated = null;
 
@@ -1039,7 +1039,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @copyright: 713uk13m <dev@nguyenanhung.com>
          * @time     : 08/18/2021 47:43
          */
-        public static function convertStrToEn($str = '', $separator = '-')
+        public static function convertStrToEn(string $str = '', string $separator = '-')
         {
             $str = trim($str);
             if (function_exists('mb_strtolower')) {
