@@ -26,7 +26,9 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "paragonie/random_compat": ">=2.0",
-        "danielstjules/stringy": "^3.1"
+        "danielstjules/stringy": "^3.1",
+        "ext-libxml": "*",
+        "ext-simplexml": "*"
     },
     "autoload": {
         "psr-4": {

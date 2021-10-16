@@ -215,6 +215,8 @@ if (!function_exists('random_string')) {
             case 'numeric':
             case 'nozero':
             case 'alpha':
+            case 'distinct':
+            case 'hexdec':
                 switch ($type) {
                     case 'alpha':
                         $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -224,6 +226,12 @@ if (!function_exists('random_string')) {
                         break;
                     case 'nozero':
                         $pool = '123456789';
+                        break;
+                    case 'distinct':
+                        $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
+                        break;
+                    case 'hexdec':
+                        $pool = '0123456789abcdef';
                         break;
                     default:
                         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

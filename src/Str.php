@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection UnserializeExploitsInspection */
+
 /**
  * Project string-helper
  * Created by PhpStorm
@@ -499,6 +500,8 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 case 'numeric':
                 case 'nozero':
                 case 'alpha':
+                case 'distinct':
+                case 'hexdec':
                     switch ($type) {
                         case 'alpha':
                             $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -511,6 +514,12 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             break;
                         case 'nozero':
                             $pool = '123456789';
+                            break;
+                        case 'distinct':
+                            $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
+                            break;
+                        case 'hexdec':
+                            $pool = '0123456789abcdef';
                             break;
                         default:
                             $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -1061,6 +1070,63 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
             }
 
             return $str;
+        }
+
+        /**
+         * Check if a string is json encoded
+         *
+         * @param string $string string to check
+         *
+         * @return bool
+         */
+        public static function isJson(string $string): bool
+        {
+            json_decode($string, true);
+
+            return json_last_error() === JSON_ERROR_NONE;
+        }
+
+        /**
+         * Check if a string is a valid XML
+         *
+         * @param string $string string to check
+         *
+         * @return bool
+         */
+        public static function isXML(string $string): bool
+        {
+            $internal_errors = libxml_use_internal_errors();
+            libxml_use_internal_errors(true);
+            $result = simplexml_load_string($string) !== false;
+            libxml_use_internal_errors($internal_errors);
+
+            return $result;
+        }
+
+        /**
+         * Check if a string is serialized
+         *
+         * @param string $string string to check
+         *
+         * @return bool
+         */
+        public static function isSerialized(string $string): bool
+        {
+            $array = @unserialize($string);
+
+            return !($array === false and $string !== 'b:0;');
+        }
+
+        /**
+         * Check if a string is html
+         *
+         * @param string $string string to check
+         *
+         * @return bool
+         */
+        public function isHTML(string $string): bool
+        {
+            return strlen(strip_tags($string)) < strlen($string);
         }
     }
 }
