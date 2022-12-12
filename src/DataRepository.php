@@ -21,7 +21,7 @@ if (!class_exists('nguyenanhung\Libraries\String\DataRepository')) {
     class DataRepository
     {
         const CONFIG_PATH = 'config';
-        const CONFIG_EXT  = '.php';
+        const CONFIG_EXT = '.php';
 
         /**
          * Hàm lấy nội dung config được quy định trong thư mục config
@@ -40,7 +40,7 @@ if (!class_exists('nguyenanhung\Libraries\String\DataRepository')) {
                 return require $path;
             }
 
-            return [];
+            return array();
         }
 
         /**
@@ -59,7 +59,7 @@ if (!class_exists('nguyenanhung\Libraries\String\DataRepository')) {
                 return require $filename;
             }
 
-            return [];
+            return array();
         }
     }
 }
