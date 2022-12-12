@@ -1,4 +1,5 @@
-<?php /** @noinspection UnserializeExploitsInspection */
+<?php
+/** @noinspection UnserializeExploitsInspection */
 
 /**
  * Project string-helper
@@ -29,7 +30,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          *
          * @var array
          */
-        public static $snakeCache = [];
+        public static $snakeCache = array();
 
         /**
          * Returns true if $haystack ends with $needle (case-sensitive)
@@ -76,19 +77,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             $endsWith = false;
                         }
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . " expects the second parameter, the needle, to be a string"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . " expects the second parameter, the needle, to be a string");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter, the haystack, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter, the haystack, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects two string parameters"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects two string parameters");
             }
 
             return $endsWith;
@@ -126,19 +121,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                     if (is_string($needle)) {
                         $endsWith = self::endsWith(strtolower($haystack), strtolower($needle));
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . "() expects parameter two, needle, to be a string"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . "() expects parameter two, needle, to be a string");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . "() expects parameter one, haystack, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . "() expects parameter one, haystack, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . "() expects two string parameters, haystack and needle"
-                );
+                throw new BadMethodCallException(__METHOD__ . "() expects two string parameters, haystack and needle");
             }
 
             return $endsWith;
@@ -183,8 +172,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public static function isBool(string $string): bool
         {
-            return is_string($string)
-                   && in_array(strtolower($string), array('true', 'false', 'yes', 'no', 'on', 'off'));
+            return is_string($string) && in_array(strtolower($string), array('true', 'false', 'yes', 'no', 'on', 'off'));
         }
 
         /**
@@ -223,19 +211,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                     if (is_string($needle)) {
                         $startsWith = self::startsWith(strtolower($haystack), strtolower($needle));
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . "() expects parameter two, needle, to be a string"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . "() expects parameter two, needle, to be a string");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . "() expects parameter one, haystack, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . "() expects parameter one, haystack, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . "() expects two string parameters, haystack and needle"
-                );
+                throw new BadMethodCallException(__METHOD__ . "() expects two string parameters, haystack and needle");
             }
 
             return $startsWith;
@@ -304,25 +286,16 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             // shuffle the password
                             $password = str_shuffle($password);
                         } else {
-                            throw new InvalidArgumentException(
-                                __METHOD__ . " expects the number of required characters to be less than or " .
-                                "equal to the length"
-                            );
+                            throw new InvalidArgumentException(__METHOD__ . " expects the number of required characters to be less than or " . "equal to the length");
                         }
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . " expects the seond parameter, length, to be an integer"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . " expects the seond parameter, length, to be an integer");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter, rules, to be an array"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter, rules, to be an array");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects two parameters, an array of charset rules and a length"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects two parameters, an array of charset rules and a length");
             }
 
             return $password;
@@ -366,10 +339,62 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         $charsets = (array) $charsets;
 
                         // define the possible charsets
-                        $lower  = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                                        'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
-                        $upper  = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                                        'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+                        $lower = array(
+                            'a',
+                            'b',
+                            'c',
+                            'd',
+                            'e',
+                            'f',
+                            'g',
+                            'h',
+                            'i',
+                            'j',
+                            'k',
+                            'l',
+                            'm',
+                            'n',
+                            'o',
+                            'p',
+                            'q',
+                            'r',
+                            's',
+                            't',
+                            'u',
+                            'v',
+                            'w',
+                            'x',
+                            'y',
+                            'z'
+                        );
+                        $upper = array(
+                            'A',
+                            'B',
+                            'C',
+                            'D',
+                            'E',
+                            'F',
+                            'G',
+                            'H',
+                            'I',
+                            'J',
+                            'K',
+                            'L',
+                            'M',
+                            'N',
+                            'O',
+                            'P',
+                            'Q',
+                            'R',
+                            'S',
+                            'T',
+                            'U',
+                            'V',
+                            'W',
+                            'X',
+                            'Y',
+                            'Z'
+                        );
                         $number = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
                         $symbol = array('!', '@', '#', '*', '(', ')', '-', '_', '+', '=', '[', ']');
 
@@ -381,10 +406,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             } elseif ($charset === 'alpha') {
                                 $chars = array_merge($chars, $lower, $upper);
                             } else {
-                                throw new InvalidArgumentException(
-                                    __METHOD__ . " expects parameter two to be a string charset name or an array " .
-                                    "of charset names such as 'lower', 'upper', 'alpha', 'number', or 'symbol'"
-                                );
+                                throw new InvalidArgumentException(__METHOD__ . " expects parameter two to be a string charset name or an array " . "of charset names such as 'lower', 'upper', 'alpha', 'number', or 'symbol'");
                             }
                         }
 
@@ -396,20 +418,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             $rand .= $chars[array_rand($chars)];
                         }
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . " expects the second parameter, charsets, to be a string charset " .
-                            "name or an array of charset names"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . " expects the second parameter, charsets, to be a string charset " . "name or an array of charset names");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter, length, to be an integer"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter, length, to be an integer");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects at least one argument, length"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects at least one argument, length");
             }
 
             return $rand;
@@ -435,8 +450,8 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                     return mt_rand();
                 case 'alnum':
                     while (($len = strlen($string)) < $length) {
-                        $size   = $length - $len;
-                        $bytes  = random_bytes($size);
+                        $size = $length - $len;
+                        $bytes = random_bytes($size);
                         $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
                     }
                     break;
@@ -464,7 +479,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                     if (($length % 2) !== 0) {
                         $string = "Length must be even";
                     } else {
-                        $bytes  = random_bytes($length / 2);
+                        $bytes = random_bytes($length / 2);
                         $string = bin2hex($bytes);
                     }
                     break;
@@ -472,7 +487,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                     $string = random_bytes($length);
                     break;
                 default:
-                    $pool   = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                     $string = substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
                     break;
             }
@@ -576,14 +591,10 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         $pieces = array();
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . "() expects parameter one to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . "() expects parameter one to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . "() expects one parameter, a string"
-                );
+                throw new BadMethodCallException(__METHOD__ . "() expects one parameter, a string");
             }
 
             return $pieces;
@@ -639,19 +650,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             $startsWith = false;
                         }
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . " expects the second parameter, the needle, to be a string"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . " expects the second parameter, the needle, to be a string");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter, the haystack, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter, the haystack, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects two string parameters, haystack and needle"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects two string parameters, haystack and needle");
             }
 
             return $startsWith;
@@ -692,7 +697,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 // if $string is actually a string
                 if (is_string($string)) {
                     // get the string's last character
-                    $val  = trim($string);
+                    $val = trim($string);
                     $last = strtolower($val[strlen($val) - 1]);
 
                     switch ($last) {
@@ -707,19 +712,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         // no break
 
                         default:
-                            throw new InvalidArgumentException(
-                                __METHOD__ . " expects the first parameter to end in 'k', 'm', or 'g'"
-                            );
+                            throw new InvalidArgumentException(__METHOD__ . " expects the first parameter to end in 'k', 'm', or 'g'");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects one parameter"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects one parameter");
             }
 
             return $val;
@@ -829,14 +828,10 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         $string = preg_replace("#[^a-zA-Z0-9]+#", '', $string);
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . " expects the first parameter, the string, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . " expects the first parameter, the string, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . " expects one parameter, a string to camel-case"
-                );
+                throw new BadMethodCallException(__METHOD__ . " expects one parameter, a string to camel-case");
             }
 
             return $string;
@@ -965,29 +960,19 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                                     $truncated = $string;
                                 }
                             } else {
-                                throw new InvalidArgumentException(
-                                    __METHOD__ . "() expects the fourth parameter, pad, to be a string or null"
-                                );
+                                throw new InvalidArgumentException(__METHOD__ . "() expects the fourth parameter, pad, to be a string or null");
                             }
                         } else {
-                            throw new InvalidArgumentException(
-                                __METHOD__ . "() expects the third parameter, break, to be a string or null"
-                            );
+                            throw new InvalidArgumentException(__METHOD__ . "() expects the third parameter, break, to be a string or null");
                         }
                     } else {
-                        throw new InvalidArgumentException(
-                            __METHOD__ . "() expects the second parameter, limit, to be an integer"
-                        );
+                        throw new InvalidArgumentException(__METHOD__ . "() expects the second parameter, limit, to be an integer");
                     }
                 } else {
-                    throw new InvalidArgumentException(
-                        __METHOD__ . "() expects the first parameter, the string, to be a string"
-                    );
+                    throw new InvalidArgumentException(__METHOD__ . "() expects the first parameter, the string, to be a string");
                 }
             } else {
-                throw new BadMethodCallException(
-                    __METHOD__ . "() expects at least two parameters, a string and an integer length limit"
-                );
+                throw new BadMethodCallException(__METHOD__ . "() expects at least two parameters, a string and an integer length limit");
             }
 
             return $truncated;
@@ -1127,6 +1112,459 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         public function isHTML(string $string): bool
         {
             return strlen(strip_tags($string)) < strlen($string);
+        }
+
+        /**
+         * Inserts one or more strings into another string on a defined position.
+         *
+         * ### str_insert
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_insert( array $keyValue, string $string ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $keyValue = [
+         *      ':color' => 'brown',
+         *      ':animal' => 'dog'
+         * ]
+         * $string = 'The quick :color fox jumps over the lazy :animal.';
+         *
+         * str_insert( $keyValue, $string );
+         *
+         * // The quick brown fox jumps over the lazy dog.
+         * ```
+         *
+         * @param array  $keyValue
+         * An associative array with key => value pairs.
+         * @param string $string
+         * The text with the strings to be replaced.
+         *
+         * @return string
+         * The replaced string.
+         */
+        public static function insert($keyValue, $string)
+        {
+            if (is_assoc($keyValue)) {
+                foreach ($keyValue as $search => $replace) {
+                    $string = str_replace($search, $replace, $string);
+                }
+            }
+
+            return $string;
+        }
+
+        /**
+         * Return the content in a string between a left and right element.
+         *
+         * ### str_between
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_between( string $left, string $right, string $string ): array
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = '<tag>foo</tag>foobar<tag>bar</tag>'
+         *
+         * str_between( '<tag>', '</tag>' $string );
+         *
+         * // (
+         * //     [0] => foo
+         * //     [1] => bar
+         * // )
+         * ```
+         *
+         *
+         * @param string $left
+         * The left element of the string to search.
+         * @param string $right
+         * The right element of the string to search.
+         * @param string $string
+         * The string to search in.
+         *
+         * @return array
+         * A result array with all matches of the search.
+         */
+        public static function between($left, $right, $string)
+        {
+            preg_match_all('/' . preg_quote($left, '/') . '(.*?)' . preg_quote($right, '/') . '/s', $string, $matches);
+
+            return array_map('trim', $matches[1]);
+        }
+
+        /**
+         * Return the part of a string after a given value.
+         *
+         * ### str_after
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_after( string $search, string $string ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         *
+         * str_after( 'fox' $string );
+         *
+         * // jumps over the lazy dog
+         * ```
+         *
+         * @param string $search
+         * The string to search for.
+         * @param string $string
+         * The string to search in.
+         *
+         * @return string
+         * The found string after the search string. Whitespaces at beginning will be removed.
+         */
+        public static function after($search, $string)
+        {
+            return $search === '' ? $string : ltrim(array_reverse(explode($search, $string, 2))[0]);
+        }
+
+        /**
+         * Get the part of a string before a given value.
+         *
+         * ### str_before
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_before( string $search, string $string ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         *
+         * str_before( 'fox' $string );
+         *
+         * // The quick brown
+         * ```
+         *
+         * @param string $search
+         * The string to search for.
+         * @param string $string
+         * The string to search in.
+         *
+         * @return string
+         * The found string before the search string. Whitespaces at end will be removed.
+         */
+        public static function before($search, $string)
+        {
+            return $search === '' ? $string : rtrim(explode($search, $string)[0]);
+        }
+
+        /**
+         * Limit the number of words in a string. Put value of $end to the string end.
+         *
+         * ### str_limit_words
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_limit_words( string $string, int $limit = 10, string $end = '...' ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         *
+         * str_limit_words( $string, 3 );
+         *
+         * // The quick brown...
+         * ```
+         *
+         * @param string $string
+         * The string to limit the words.
+         * @param int    $limit
+         * The number of words to limit. Defaults to 10.
+         * @param string $end
+         * The string to end the cut string. Defaults to '...'
+         *
+         * @return string
+         * The limited string with $end at the end.
+         */
+        public static function limitWords($string, $limit = 10, $end = '...')
+        {
+            $arrayWords = explode(' ', $string);
+
+            if (sizeof($arrayWords) <= $limit) {
+                return $string;
+            }
+
+            return implode(' ', array_slice($arrayWords, 0, $limit)) . $end;
+        }
+
+        /**
+         * Limit the number of characters in a string. Put value of $end to the string end.
+         *
+         * ### str_limit
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_limit( string $string, int $limit = 100, string $end = '...' ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         *
+         * str_limit( $string, 15 );
+         *
+         * // The quick brown...
+         * ```
+         *
+         * @param string $string
+         * The string to limit the characters.
+         * @param int    $limit
+         * The number of characters to limit. Defaults to 100.
+         * @param string $end
+         * The string to end the cut string. Defaults to '...'
+         *
+         * @return string
+         * The limited string with $end at the end.
+         */
+        public static function limit($string, $limit = 100, $end = '...')
+        {
+            if (mb_strwidth($string, 'UTF-8') <= $limit) {
+                return $string;
+            }
+
+            return rtrim(mb_strimwidth($string, 0, $limit, '', 'UTF-8')) . $end;
+        }
+
+        /**
+         * Tests if a string contains a given element
+         *
+         * ### str_contains
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_contains( string|array $needle, string $haystack ): boolean
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         * $array = [
+         *      'cat',
+         *      'fox'
+         * ];
+         *
+         * str_contains( $array, $string );
+         *
+         * // bool(true)
+         * ```
+         *
+         * @param string|array $needle
+         * A string or an array of strings.
+         * @param string       $haystack
+         * The string to search in.
+         *
+         * @return bool
+         * True if $needle is found, false otherwise.
+         */
+        public static function contains($needle, $haystack)
+        {
+            foreach ((array) $needle as $ndl) {
+                if (strpos($haystack, $ndl) !== false) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Tests if a string contains a given element. Ignore case sensitivity.
+         *
+         * ### str_icontains
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_icontains( string|array $needle, string $haystack ): boolean
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         * $array = [
+         *      'Cat',
+         *      'Fox'
+         * ];
+         *
+         * str_icontains( $array, $string );
+         *
+         * // bool(true)
+         * ```
+         *
+         * @param string|array $needle
+         * A string or an array of strings.
+         * @param string       $haystack
+         * The string to search in.
+         *
+         * @return bool
+         * True if $needle is found, false otherwise.
+         */
+        public static function containsIgnoreCase($needle, $haystack)
+        {
+            foreach ((array) $needle as $ndl) {
+                if (stripos($haystack, $ndl) !== false) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Determine if a given string starts with a given substring. Ignore case sensitivity.
+         *
+         * ### str_istarts_with
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_istarts_with( string|array $needle, string $haystack ): boolean
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         * $array = [
+         *      'cat',
+         *      'the'
+         * ];
+         *
+         * str_istarts_with( $array, $string );
+         *
+         * // bool(true)
+         * ```
+         *
+         * @param string|array $needle
+         * The string or array of strings to search for.
+         * @param string       $haystack
+         * The string to search in.
+         *
+         * @return bool
+         * True if $needle was found, false otherwise.
+         */
+        public static function startsWithIgnoreCase($needle, $haystack)
+        {
+            $hs = strtolower($haystack);
+
+            foreach ((array) $needle as $ndl) {
+                $n = strtolower($ndl);
+                if ($n !== '' && substr($hs, 0, strlen($n)) === (string) $n) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Determine if a given string ends with a given substring.
+         *
+         * ### str_iends_with
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_iends_with( string|array $needle, string $haystack ): boolean
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $string = 'The quick brown fox jumps over the lazy dog';
+         * $array = [
+         *      'Cat',
+         *      'Dog'
+         * ];
+         *
+         * str_iends_with( $array, $string );
+         *
+         * // bool(true)
+         * ```
+         *
+         * @param string|array $needle
+         * The string or array of strings to search for.
+         * @param string       $haystack
+         * The string to search in.
+         *
+         * @return bool
+         * True if $needle was found, false otherwise.
+         */
+        public static function endsWithIgnoreCase($needle, $haystack)
+        {
+            $hs = strtolower($haystack);
+
+            foreach ((array) $needle as $ndl) {
+                $n = strtolower($ndl);
+                $length = strlen($ndl);
+                if ($length === 0 || (substr($hs, -$length) === (string) $n)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Return the part of a string after the last occurrence of a given search value.
+         *
+         * ### str_after_last
+         * Related global function (description see above).
+         *
+         * > #### [( jump back )](#available-php-functions)
+         *
+         * ```php
+         * str_after_last( string $search, string $string ): string
+         * ```
+         *
+         * #### Example
+         * ```php
+         * $path = "/var/www/html/public/img/image.jpg";
+         *
+         * str_after_last( '/' $path );
+         *
+         * // image.jpg
+         * ```
+         *
+         * @param string $search
+         * The string to search for.
+         * @param string $string
+         * The string to search in.
+         *
+         * @return string
+         * The found string after the last occurrence of the search string. Whitespaces at beginning will be removed.
+         */
+        public static function afterLast($search, $string)
+        {
+            return $search === '' ? $string : ltrim(array_reverse(explode($search, $string))[0]);
         }
     }
 }
