@@ -436,81 +436,35 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * @param int    $length
          * @param string $type
          *
-         * @return bool|int|string
-         * @throws \Exception
+         * @return int|string|null
          * @author   : 713uk13m <dev@nguyenanhung.com>
          * @copyright: 713uk13m <dev@nguyenanhung.com>
-         * @time     : 09/22/2021 46:12
+         * @time     : 14/02/2023 54:56
          */
         public static function random(int $length = 16, string $type = 'alnum')
         {
-            $string = '';
-            switch ($type) {
-                case 'basic':
-                    return mt_rand();
-                case 'alnum':
-                    while (($len = strlen($string)) < $length) {
-                        $size = $length - $len;
-                        $bytes = random_bytes($size);
-                        $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
-                    }
-                    break;
-                case 'alpha':
-                    $data = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    while ((strlen($string)) < $length) {
-                        $string .= $data[random_int(0, strlen($data) - 1)];
-                    }
-                    break;
-                case 'numeric':
-                    $data = "01234567890";
-                    while ((strlen($string)) < $length) {
-                        $string .= $data[random_int(0, 9)];
-                    }
-                    break;
-                case 'nozero':
-                    $pool = '123456789';
-
-                    return substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
-                case 'md5':
-                    return md5(uniqid(mt_rand(), true));
-                case 'sha1':
-                    return sha1(uniqid(mt_rand(), true));
-                case 'hex':
-                    if (($length % 2) !== 0) {
-                        $string = "Length must be even";
-                    } else {
-                        $bytes = random_bytes($length / 2);
-                        $string = bin2hex($bytes);
-                    }
-                    break;
-                case 'binary':
-                    $string = random_bytes($length);
-                    break;
-                default:
-                    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $string = substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
-                    break;
-            }
-
-            return $string;
+            return self::randomString($type, $length);
         }
 
         /**
          * Create a "Random" String
          *
-         * @param string    type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
-         * @param int    number of characters
+         * @param string $type   type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
+         * @param int    $length number of characters
          *
-         * @return    string
+         * @return int|string|null
          * @author: 713uk13m <dev@nguyenanhung.com>
          * @time  : 9/29/18 11:25
          *
          */
-        public static function randomString($type = 'alnum', $len = 8): string
+        public static function randomString(string $type = 'alnum', int $length = 16)
         {
             switch ($type) {
                 case 'basic':
                     return mt_rand();
+                    break;
+
+                default:
                 case 'alnum':
                 case 'numeric':
                 case 'nozero':
@@ -521,30 +475,94 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         case 'alpha':
                             $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                             break;
+
+                        default:
                         case 'alnum':
                             $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                             break;
+
                         case 'numeric':
                             $pool = '0123456789';
                             break;
+
                         case 'nozero':
                             $pool = '123456789';
                             break;
+
                         case 'distinct':
                             $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
                             break;
+
                         case 'hexdec':
                             $pool = '0123456789abcdef';
                             break;
-                        default:
-                            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                     }
 
-                    return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
-                case 'sha1':
-                    return sha1(uniqid(mt_rand(), true));
-                default:
+                    $str = '';
+                    for ($i = 0; $i < $length; $i++) {
+                        $str .= substr($pool, mt_rand(0, strlen($pool) - 1), 1);
+                    }
+
+                    return $str;
+                    break;
+
+                case 'md5':
+                case 'unique':
                     return md5(uniqid(mt_rand(), true));
+                    break;
+                case 'sha1' :
+                    return sha1(uniqid(mt_rand(), true));
+                    break;
+                case 'sha256' :
+                    return hash('sha256', uniqid(mt_rand(), true));
+                    break;
+                case 'sha384' :
+                    return hash('sha384', uniqid(mt_rand(), true));
+                    break;
+                case 'sha512' :
+                    return hash('sha512', uniqid(mt_rand(), true));
+                    break;
+                case 'whirlpool' :
+                    return hash('whirlpool', uniqid(mt_rand(), true));
+                    break;
+                case 'uuid':
+                    $pool = array('8', '9', 'a', 'b');
+
+                    return sprintf('%s-%s-4%s-%s%s-%s',
+                                   static::randomString('hexdec', 8),
+                                   static::randomString('hexdec', 4),
+                                   static::randomString('hexdec', 3),
+                                   $pool[array_rand($pool)],
+                                   static::randomString('hexdec', 3),
+                                   static::randomString('hexdec', 12)
+                    );
+                    break;
+                case 'binary':
+                    if (function_exists('random_bytes')) {
+                        try {
+                            return random_bytes($length);
+                        }catch (\Exception $exception){
+                            return null;
+                        }
+                    } else {
+                        return null;
+                    }
+                    break;
+                case 'hex':
+                case 'crypto':
+                    if ($length % 2 !== 0) {
+                        throw new InvalidArgumentException('You must set an even number to the second parameter when you use `crypto`.');
+                    }
+                    if (function_exists('random_bytes')) {
+                        try {
+                            return bin2hex(random_bytes($length / 2));
+                        }catch (\Exception $exception){
+                            return null;
+                        }
+                    } else {
+                        return null;
+                    }
+                    break;
             }
         }
 
