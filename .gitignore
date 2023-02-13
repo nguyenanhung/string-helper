@@ -125,3 +125,4 @@ composer.lock
 cache/*
 !cache/.htaccess
 !cache/.gitkeep
+test.php

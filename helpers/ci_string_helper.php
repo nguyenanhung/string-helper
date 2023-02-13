@@ -199,18 +199,23 @@ if (!function_exists('reduce_multiples')) {
 
 if (!function_exists('random_string')) {
     /**
-     * Create a "Random" String
+     * Creates a random string of characters
      *
-     * @param string    type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
-     * @param int    number of characters
+     * From FuelPHP
      *
-     * @return    string
+     * @param string $type   the type of string
+     * @param int    $length the number of characters
+     *
+     * @return  string  the random string
      */
-    function random_string($type = 'alnum', $len = 8): string
+    function random_string(string $type = 'alnum', int $length = 16): string
     {
         switch ($type) {
             case 'basic':
                 return mt_rand();
+                break;
+
+            default:
             case 'alnum':
             case 'numeric':
             case 'nozero':
@@ -221,32 +226,57 @@ if (!function_exists('random_string')) {
                     case 'alpha':
                         $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                         break;
+
+                    default:
+                    case 'alnum':
+                        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        break;
+
                     case 'numeric':
                         $pool = '0123456789';
                         break;
+
                     case 'nozero':
                         $pool = '123456789';
                         break;
+
                     case 'distinct':
                         $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
                         break;
+
                     case 'hexdec':
                         $pool = '0123456789abcdef';
                         break;
-                    default:
-                        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        break;
                 }
 
-                return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
-            case 'unique': // todo: remove in 3.1+
+                $str = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $str .= substr($pool, mt_rand(0, strlen($pool) - 1), 1);
+                }
+
+                return $str;
+                break;
+
             case 'md5':
+            case 'unique':
                 return md5(uniqid(mt_rand(), true));
-            case 'encrypt': // todo: remove in 3.1+
-            case 'sha1':
+                break;
+
+            case 'sha1' :
                 return sha1(uniqid(mt_rand(), true));
-            default:
-                return md5(mt_rand());
+                break;
+
+            case 'uuid':
+                $pool = array('8', '9', 'a', 'b');
+
+                return sprintf('%s-%s-4%s-%s%s-%s',
+                               random_string('hexdec', 8),
+                               random_string('hexdec', 4),
+                               random_string('hexdec', 3),
+                               $pool[array_rand($pool)],
+                               random_string('hexdec', 3),
+                               random_string('hexdec', 12));
+                break;
         }
     }
 }
@@ -350,5 +380,41 @@ if (!function_exists('remove_invisible_characters_string')) {
         while ($count);
 
         return $str;
+    }
+}
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('starts_with')) {
+    /**
+     * Checks whether a string has a precific beginning.
+     *
+     * @param string  $str         string to check
+     * @param string  $start       beginning to check for
+     * @param boolean $ignore_case whether to ignore the case
+     *
+     * @return  boolean  whether a string starts with a specified beginning
+     */
+    function starts_with(string $str, string $start, bool $ignore_case = false): bool
+    {
+        return (bool) preg_match('/^' . preg_quote($start, '/') . '/m' . ($ignore_case ? 'i' : ''), $str);
+    }
+}
+
+// ------------------------------------------------------------------------
+
+if (!function_exists('ends_with')) {
+    /**
+     * Checks whether a string has a precific ending.
+     *
+     * @param string  $str         string to check
+     * @param string  $end         ending to check for
+     * @param boolean $ignore_case whether to ignore the case
+     *
+     * @return  boolean  whether a string ends with a specified ending
+     */
+    function ends_with(string $str, string $end, bool $ignore_case = false): bool
+    {
+        return (bool) preg_match('/' . preg_quote($end, '/') . '$/m' . ($ignore_case ? 'i' : ''), $str);
     }
 }
