@@ -431,110 +431,136 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         /**
          * Function random
          *
-         * @param int    $length
-         * @param string $type
+         * @param $length
+         * @param $type
          *
-         * @return bool|int|string
-         * @throws \Exception
+         * @return int|string|null
          * @author   : 713uk13m <dev@nguyenanhung.com>
          * @copyright: 713uk13m <dev@nguyenanhung.com>
-         * @time     : 09/22/2021 46:12
+         * @time     : 14/02/2023 54:56
          */
         public static function random($length = 16, $type = 'alnum')
         {
-            $string = '';
-            switch ($type) {
-                case 'basic':
-                    return mt_rand();
-                case 'alnum':
-                    while (($len = strlen($string)) < $length) {
-                        $size = $length - $len;
-                        $bytes = random_bytes($size);
-                        $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
-                    }
-                    break;
-                case 'alpha':
-                    $data = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    while ((strlen($string)) < $length) {
-                        $string .= $data[mt_rand(0, strlen($data) - 1)];
-                    }
-                    break;
-                case 'numeric':
-                    $data = "01234567890";
-                    while ((strlen($string)) < $length) {
-                        $string .= $data[mt_rand(0, 9)];
-                    }
-                    break;
-                case 'nozero':
-                    $pool = '123456789';
-
-                    return substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
-                case 'md5':
-                    return md5(uniqid(mt_rand(), true));
-                case 'sha1':
-                    return sha1(uniqid(mt_rand(), true));
-                case 'hex':
-                    if (($length % 2) !== 0) {
-                        $string = "Length must be even";
-                    } else {
-                        $bytes = random_bytes($length / 2);
-                        $string = bin2hex($bytes);
-                    }
-                    break;
-                case 'binary':
-                    $string = random_bytes($length);
-                    break;
-                default:
-                    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $string = substr(str_shuffle(str_repeat($pool, ceil($length / strlen($pool)))), 0, $length);
-                    break;
-            }
-
-            return $string;
+            return self::randomString($type, $length);
         }
 
         /**
          * Create a "Random" String
          *
-         * @param string    type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
-         * @param int    number of characters
+         * @param string $type   type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
+         * @param int    $length number of characters
          *
-         * @return    string
+         * @return int|string|null
          * @author: 713uk13m <dev@nguyenanhung.com>
          * @time  : 9/29/18 11:25
          *
          */
-        public static function randomString($type = 'alnum', $len = 8)
+        public static function randomString($type = 'alnum', $length = 16)
         {
             switch ($type) {
                 case 'basic':
                     return mt_rand();
+                    break;
+
+                default:
                 case 'alnum':
                 case 'numeric':
                 case 'nozero':
                 case 'alpha':
+                case 'distinct':
+                case 'hexdec':
                     switch ($type) {
                         case 'alpha':
                             $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                             break;
+
+                        default:
                         case 'alnum':
                             $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                             break;
+
                         case 'numeric':
                             $pool = '0123456789';
                             break;
+
                         case 'nozero':
                             $pool = '123456789';
                             break;
-                        default:
-                            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+                        case 'distinct':
+                            $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
+                            break;
+
+                        case 'hexdec':
+                            $pool = '0123456789abcdef';
+                            break;
                     }
 
-                    return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
-                case 'sha1':
-                    return sha1(uniqid(mt_rand(), true));
-                default:
+                    $str = '';
+                    for ($i = 0; $i < $length; $i++) {
+                        $str .= substr($pool, mt_rand(0, strlen($pool) - 1), 1);
+                    }
+
+                    return $str;
+                    break;
+
+                case 'md5':
+                case 'unique':
                     return md5(uniqid(mt_rand(), true));
+                    break;
+                case 'sha1' :
+                    return sha1(uniqid(mt_rand(), true));
+                    break;
+                case 'sha256' :
+                    return hash('sha256', uniqid(mt_rand(), true));
+                    break;
+                case 'sha384' :
+                    return hash('sha384', uniqid(mt_rand(), true));
+                    break;
+                case 'sha512' :
+                    return hash('sha512', uniqid(mt_rand(), true));
+                    break;
+                case 'whirlpool' :
+                    return hash('whirlpool', uniqid(mt_rand(), true));
+                    break;
+                case 'uuid':
+                    $pool = array('8', '9', 'a', 'b');
+
+                    return sprintf('%s-%s-4%s-%s%s-%s',
+                                   static::randomString('hexdec', 8),
+                                   static::randomString('hexdec', 4),
+                                   static::randomString('hexdec', 3),
+                                   $pool[array_rand($pool)],
+                                   static::randomString('hexdec', 3),
+                                   static::randomString('hexdec', 12)
+                    );
+                    break;
+                case 'binary':
+                    if (function_exists('random_bytes')) {
+                        try {
+                            return random_bytes($length);
+                        }catch (\Exception $exception){
+                            return null;
+                        }
+                    } else {
+                        return null;
+                    }
+                    break;
+                case 'hex':
+                case 'crypto':
+                    if ($length % 2 !== 0) {
+                        throw new InvalidArgumentException('You must set an even number to the second parameter when you use `crypto`.');
+                    }
+                    if (function_exists('random_bytes')) {
+                        try {
+                            return bin2hex(random_bytes($length / 2));
+                        }catch (\Exception $exception){
+                            return null;
+                        }
+                    } else {
+                        return null;
+                    }
+                    break;
             }
         }
 
@@ -1076,6 +1102,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * An associative array with key => value pairs.
          * @param string $string
          * The text with the strings to be replaced.
+         *
          * @return string
          * The replaced string.
          */
@@ -1121,12 +1148,14 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The right element of the string to search.
          * @param string $string
          * The string to search in.
+         *
          * @return array
          * A result array with all matches of the search.
          */
         public static function between($left, $right, $string)
         {
             preg_match_all('/' . preg_quote($left, '/') . '(.*?)' . preg_quote($right, '/') . '/s', $string, $matches);
+
             return array_map('trim', $matches[1]);
         }
 
@@ -1155,6 +1184,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The string to search for.
          * @param string $string
          * The string to search in.
+         *
          * @return string
          * The found string after the search string. Whitespaces at beginning will be removed.
          */
@@ -1188,6 +1218,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The string to search for.
          * @param string $string
          * The string to search in.
+         *
          * @return string
          * The found string before the search string. Whitespaces at end will be removed.
          */
@@ -1217,12 +1248,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * // The quick brown...
          * ```
          *
-         * @param  string $string
+         * @param string $string
          * The string to limit the words.
-         * @param  int    $limit
+         * @param int    $limit
          * The number of words to limit. Defaults to 10.
-         * @param  string $end
+         * @param string $end
          * The string to end the cut string. Defaults to '...'
+         *
          * @return string
          * The limited string with $end at the end.
          */
@@ -1258,12 +1290,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * // The quick brown...
          * ```
          *
-         * @param  string $string
+         * @param string $string
          * The string to limit the characters.
-         * @param  int    $limit
+         * @param int    $limit
          * The number of characters to limit. Defaults to 100.
-         * @param  string $end
+         * @param string $end
          * The string to end the cut string. Defaults to '...'
+         *
          * @return string
          * The limited string with $end at the end.
          */
@@ -1305,12 +1338,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * A string or an array of strings.
          * @param string       $haystack
          * The string to search in.
+         *
          * @return bool
          * True if $needle is found, false otherwise.
          */
         public static function contains($needle, $haystack)
         {
-            foreach ((array)$needle as $ndl) {
+            foreach ((array) $needle as $ndl) {
                 if (strpos($haystack, $ndl) !== false) {
                     return true;
                 }
@@ -1348,12 +1382,13 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * A string or an array of strings.
          * @param string       $haystack
          * The string to search in.
+         *
          * @return bool
          * True if $needle is found, false otherwise.
          */
         public static function containsIgnoreCase($needle, $haystack)
         {
-            foreach ((array)$needle as $ndl) {
+            foreach ((array) $needle as $ndl) {
                 if (stripos($haystack, $ndl) !== false) {
                     return true;
                 }
@@ -1391,6 +1426,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The string or array of strings to search for.
          * @param string       $haystack
          * The string to search in.
+         *
          * @return bool
          * True if $needle was found, false otherwise.
          */
@@ -1398,9 +1434,9 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         {
             $hs = strtolower($haystack);
 
-            foreach ((array)$needle as $ndl) {
+            foreach ((array) $needle as $ndl) {
                 $n = strtolower($ndl);
-                if ($n !== '' && substr($hs, 0, strlen($n)) === (string)$n) {
+                if ($n !== '' && substr($hs, 0, strlen($n)) === (string) $n) {
                     return true;
                 }
             }
@@ -1437,6 +1473,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The string or array of strings to search for.
          * @param string       $haystack
          * The string to search in.
+         *
          * @return bool
          * True if $needle was found, false otherwise.
          */
@@ -1444,10 +1481,10 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         {
             $hs = strtolower($haystack);
 
-            foreach ((array)$needle as $ndl) {
+            foreach ((array) $needle as $ndl) {
                 $n = strtolower($ndl);
                 $length = strlen($ndl);
-                if ($length === 0 || (substr($hs, -$length) === (string)$n)) {
+                if ($length === 0 || (substr($hs, -$length) === (string) $n)) {
                     return true;
                 }
             }
@@ -1480,6 +1517,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          * The string to search for.
          * @param string $string
          * The string to search in.
+         *
          * @return string
          * The found string after the last occurrence of the search string. Whitespaces at beginning will be removed.
          */
