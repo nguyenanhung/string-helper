@@ -25,10 +25,10 @@
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "paragonie/random_compat": ">=2.0",
-        "danielstjules/stringy": "^3.1",
         "ext-libxml": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "paragonie/random_compat": ">=2.0",
+        "danielstjules/stringy": "^3.1"
     },
     "autoload": {
         "psr-4": {
