@@ -35,28 +35,9 @@ if (!class_exists('nguyenanhung\Libraries\String\DataRepository')) {
          */
         public static function getData($configName)
         {
-            $path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_PATH . DIRECTORY_SEPARATOR . $configName . self::CONFIG_EXT;
+            $path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_PATH . DIRECTORY_SEPARATOR . trim($configName) . self::CONFIG_EXT;
             if (is_file($path) && file_exists($path)) {
                 return require $path;
-            }
-
-            return array();
-        }
-
-        /**
-         * Hàm lấy nội dung Data từ 1 file bất kỳ trong hệ thống
-         *
-         * @author: 713uk13m <dev@nguyenanhung.com>
-         * @time  : 10/17/18 09:25
-         *
-         * @param string $filename Đường dẫn file config
-         *
-         * @return array|mixed
-         */
-        public static function getDataContent($filename)
-        {
-            if (is_file($filename) && file_exists($filename)) {
-                return require $filename;
             }
 
             return array();

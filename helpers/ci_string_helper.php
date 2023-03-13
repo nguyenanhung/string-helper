@@ -120,7 +120,7 @@ if (!function_exists('strip_quotes')) {
      */
     function strip_quotes($str)
     {
-        return str_replace(['"', "'"], '', $str);
+        return str_replace(array('"', "'"), '', $str);
     }
 }
 
@@ -138,7 +138,7 @@ if (!function_exists('quotes_to_entities')) {
      */
     function quotes_to_entities($str)
     {
-        return str_replace(["\'", "\"", "'", '"'], ["&#39;", "&quot;", "&#39;", "&quot;"], $str);
+        return str_replace(array("\'", "\"", "'", '"'), array("&#39;", "&quot;", "&#39;", "&quot;"), $str);
     }
 }
 
