@@ -54,7 +54,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Utf8')) {
             }
             if (defined('PREG_BAD_UTF8_ERROR')                // PCRE must support UTF-8
                 && (ICONV_ENABLED === true or MB_ENABLED === true)    // iconv or mbstring must be installed
-                && strtoupper($charset) === 'UTF-8'    // Application charset must be UTF-8
+                && mb_strtoupper($charset) === 'UTF-8'    // Application charset must be UTF-8
             ) {
                 define('UTF8_ENABLED', true);
             } else {
