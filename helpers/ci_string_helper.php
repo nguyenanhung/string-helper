@@ -251,7 +251,7 @@ if (!function_exists('random_string')) {
 
                 $str = '';
                 for ($i = 0; $i < $length; $i++) {
-                    $str .= substr($pool, mt_rand(0, strlen($pool) - 1), 1);
+                    $str .= mb_substr($pool, mt_rand(0, mb_strlen($pool) - 1), 1);
                 }
 
                 return $str;

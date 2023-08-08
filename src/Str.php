@@ -72,7 +72,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         // if $haystack is not an empty string
                         // if $needle is not an empty string
                         if (($haystackLen > 0) && $needleLen > 0) {
-                            $endsWith = substr($haystack, -strlen($needle)) === $needle;
+                            $endsWith = mb_substr($haystack, -mb_strlen($needle)) === $needle;
                         } else {
                             $endsWith = false;
                         }
@@ -119,7 +119,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 if (is_string($haystack)) {
                     // if $needle is a string
                     if (is_string($needle)) {
-                        $endsWith = self::endsWith(strtolower($haystack), strtolower($needle));
+                        $endsWith = self::endsWith(mb_strtolower($haystack), mb_strtolower($needle));
                     } else {
                         throw new InvalidArgumentException(__METHOD__ . "() expects parameter two, needle, to be a string");
                     }
@@ -172,7 +172,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public static function isBool(string $string): bool
         {
-            return is_string($string) && in_array(strtolower($string), array('true', 'false', 'yes', 'no', 'on', 'off'));
+            return is_string($string) && in_array(mb_strtolower($string), array('true', 'false', 'yes', 'no', 'on', 'off'));
         }
 
         /**
@@ -209,7 +209,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 if (is_string($haystack)) {
                     // if $needle is a string
                     if (is_string($needle)) {
-                        $startsWith = self::startsWith(strtolower($haystack), strtolower($needle));
+                        $startsWith = self::startsWith(mb_strtolower($haystack), mb_strtolower($needle));
                     } else {
                         throw new InvalidArgumentException(__METHOD__ . "() expects parameter two, needle, to be a string");
                     }
@@ -280,8 +280,8 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                                 $password .= self::rand($number, $charset);
                             }
                             // if any characters are missing, add them
-                            if ($length - strlen($password) > 0) {
-                                $password .= self::rand($length - strlen($password));
+                            if ($length - mb_strlen($password) > 0) {
+                                $password .= self::rand($length - mb_strlen($password));
                             }
                             // shuffle the password
                             $password = str_shuffle($password);
@@ -500,7 +500,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
 
                     $str = '';
                     for ($i = 0; $i < $length; $i++) {
-                        $str .= substr($pool, mt_rand(0, strlen($pool) - 1), 1);
+                        $str .= mb_substr($pool, mt_rand(0, mb_strlen($pool) - 1), 1);
                     }
 
                     return $str;
@@ -660,7 +660,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             $needleLen = mb_strlen($needle);
                             // if $needle is not empty
                             if ($needleLen > 0) {
-                                $startsWith = !strncmp($haystack, $needle, strlen($needle));
+                                $startsWith = !strncmp($haystack, $needle, mb_strlen($needle));
                             } else {
                                 $startsWith = false;
                             }
@@ -716,7 +716,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                 if (is_string($string)) {
                     // get the string's last character
                     $val = trim($string);
-                    $last = strtolower($val[strlen($val) - 1]);
+                    $last = mb_strtolower($val[mb_strlen($val) - 1]);
 
                     switch ($last) {
 
@@ -831,7 +831,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                         $string = str_replace(array('-', '_'), ' ', $string);
 
                         // lower-case everything
-                        $string = strtolower($string);
+                        $string = mb_strtolower($string);
 
                         // capitalize each word
                         $string = ucwords($string);
@@ -890,10 +890,10 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         public static function titleCase($str)
         {
             if (!is_array($str)) {
-                return ucwords(strtolower($str));
+                return ucwords(mb_strtolower($str));
             }
             foreach ($str as $key => $value) {
-                $str[$key] = ucwords(strtolower($value));
+                $str[$key] = ucwords(mb_strtolower($value));
             }
 
             return $str;
@@ -912,7 +912,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public static function camelizeCase($str, string $encoding = 'UTF-8')
         {
-            $str = str_replace(array('_', '-'), ' ', strtolower(trim($str)));
+            $str = str_replace(array('_', '-'), ' ', mb_strtolower(trim($str)));
             $str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
 
             return preg_replace('!\s+!', '', $str);
@@ -963,12 +963,12 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
                             // if $pad is a string or it's null
                             if (is_string($pad) || is_null($pad)) {
                                 // if $string is longer than $limit
-                                if (strlen($string) > $limit) {
+                                if (mb_strlen($string) > $limit) {
                                     // truncate the string at the limit
-                                    $truncated = substr($string, 0, $limit);
+                                    $truncated = mb_substr($string, 0, $limit);
                                     // if a break character is defined and it exists in the truncated string
-                                    if ($break !== null && $break !== '' && strpos($truncated, $break)) {
-                                        $truncated = substr($truncated, 0, strrpos($truncated, $break));
+                                    if ($break !== null && $break !== '' && mb_strpos($truncated, $break)) {
+                                        $truncated = mb_substr($truncated, 0, mb_strrpos($truncated, $break));
                                     }
                                     // if a pad exists, use it
                                     if ($pad !== null && $pad !== '') {
@@ -1057,17 +1057,17 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
             if (function_exists('mb_strtolower')) {
                 $str = mb_strtolower($str);
             } else {
-                $str = strtolower($str);
+                $str = mb_strtolower($str);
             }
             $data = DataRepository::getData('string');
             if (!empty($str)) {
                 $str = preg_replace("/[^a-zA-Z0-9]/", $separator, $str);
                 $str = preg_replace("/-+/", $separator, $str);
                 $str = str_replace(array($data['special_array'], $data['vn_array'], $data['ascii_array'], $data['utf8_array'], ' '), array($separator, $data['en_array'], $data['normal_array'], $data['normal_array'], $separator), $str);
-                while (strpos($str, '--') > 0) {
+                while (mb_strpos($str, '--') > 0) {
                     $str = str_replace('--', $separator, $str);
                 }
-                while (strpos($str, '--') === 0) {
+                while (mb_strpos($str, '--') === 0) {
                     $str = str_replace('--', $separator, $str);
                 }
             }
@@ -1129,7 +1129,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public function isHTML(string $string): bool
         {
-            return strlen(strip_tags($string)) < strlen($string);
+            return mb_strlen(strip_tags($string)) < mb_strlen($string);
         }
 
         /**
@@ -1404,7 +1404,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
         public static function contains($needle, $haystack)
         {
             foreach ((array) $needle as $ndl) {
-                if (strpos($haystack, $ndl) !== false) {
+                if (mb_strpos($haystack, $ndl) !== false) {
                     return true;
                 }
             }
@@ -1491,11 +1491,11 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public static function startsWithIgnoreCase($needle, $haystack)
         {
-            $hs = strtolower($haystack);
+            $hs = mb_strtolower($haystack);
 
             foreach ((array) $needle as $ndl) {
-                $n = strtolower($ndl);
-                if ($n !== '' && substr($hs, 0, strlen($n)) === (string) $n) {
+                $n = mb_strtolower($ndl);
+                if ($n !== '' && mb_substr($hs, 0, mb_strlen($n)) === (string) $n) {
                     return true;
                 }
             }
@@ -1538,12 +1538,12 @@ if (!class_exists('nguyenanhung\Libraries\String\Str')) {
          */
         public static function endsWithIgnoreCase($needle, $haystack)
         {
-            $hs = strtolower($haystack);
+            $hs = mb_strtolower($haystack);
 
             foreach ((array) $needle as $ndl) {
-                $n = strtolower($ndl);
-                $length = strlen($ndl);
-                if ($length === 0 || (substr($hs, -$length) === (string) $n)) {
+                $n = mb_strtolower($ndl);
+                $length = mb_strlen($ndl);
+                if ($length === 0 || (mb_substr($hs, -$length) === (string) $n)) {
                     return true;
                 }
             }
