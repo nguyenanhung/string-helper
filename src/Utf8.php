@@ -56,7 +56,7 @@ if (!class_exists('nguyenanhung\Libraries\String\Utf8')) {
                 && (ICONV_ENABLED === true or MB_ENABLED === true)    // iconv or mbstring must be installed
                 && mb_strtoupper($charset) === 'UTF-8'    // Application charset must be UTF-8
             ) {
-                define('UTF8_ENABLED', true);
+                defined('UTF8_ENABLED') or  define('UTF8_ENABLED', true);
             } else {
                 define('UTF8_ENABLED', false);
             }
