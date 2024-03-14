@@ -56,402 +56,404 @@
 // ------------------------------------------------------------------------
 
 if (!function_exists('trim_slashes')) {
-    /**
-     * Trim Slashes
-     *
-     * Removes any leading/trailing slashes from a string:
-     *
-     * /this/that/theother/
-     *
-     * becomes:
-     *
-     * this/that/theother
-     *
-     * @todo          Remove in version 3.1+.
-     * @deprecated    3.0.0    This is just an alias for PHP's native trim()
-     *
-     * @param string
-     *
-     * @return    string
-     */
-    function trim_slashes($str): string
-    {
-        return trim($str, '/');
-    }
+	/**
+	 * Trim Slashes
+	 *
+	 * Removes any leading/trailing slashes from a string:
+	 *
+	 * /this/that/theother/
+	 *
+	 * becomes:
+	 *
+	 * this/that/theother
+	 *
+	 * @param string
+	 *
+	 * @return    string
+	 * @todo          Remove in version 3.1+.
+	 * @deprecated    3.0.0    This is just an alias for PHP's native trim()
+	 *
+	 */
+	function trim_slashes($str): string
+	{
+		return trim($str, '/');
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('strip_slashes')) {
-    /**
-     * Strip Slashes
-     *
-     * Removes slashes contained in a string or in an array
-     *
-     * @param mixed    string or array
-     *
-     * @return    array|string    string or array
-     */
-    function strip_slashes($str)
-    {
-        if (!is_array($str)) {
-            return stripslashes($str);
-        }
+	/**
+	 * Strip Slashes
+	 *
+	 * Removes slashes contained in a string or in an array
+	 *
+	 * @param mixed    string or array
+	 *
+	 * @return    array|string    string or array
+	 */
+	function strip_slashes($str)
+	{
+		if (!is_array($str)) {
+			return stripslashes($str);
+		}
 
-        foreach ($str as $key => $val) {
-            $str[$key] = strip_slashes($val);
-        }
+		foreach ($str as $key => $val) {
+			$str[$key] = strip_slashes($val);
+		}
 
-        return $str;
-    }
+		return $str;
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('strip_quotes')) {
-    /**
-     * Strip Quotes
-     *
-     * Removes single and double quotes from a string
-     *
-     * @param string
-     *
-     * @return    string
-     */
-    function strip_quotes($str): string
-    {
-        return str_replace(['"', "'"], '', $str);
-    }
+	/**
+	 * Strip Quotes
+	 *
+	 * Removes single and double quotes from a string
+	 *
+	 * @param string
+	 *
+	 * @return    string
+	 */
+	function strip_quotes($str): string
+	{
+		return str_replace(['"', "'"], '', $str);
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('quotes_to_entities')) {
-    /**
-     * Quotes to Entities
-     *
-     * Converts single and double quotes to entities
-     *
-     * @param string
-     *
-     * @return    string
-     */
-    function quotes_to_entities($str): string
-    {
-        return str_replace(["\'", "\"", "'", '"'], ["&#39;", "&quot;", "&#39;", "&quot;"], $str);
-    }
+	/**
+	 * Quotes to Entities
+	 *
+	 * Converts single and double quotes to entities
+	 *
+	 * @param string
+	 *
+	 * @return    string
+	 */
+	function quotes_to_entities($str): string
+	{
+		return str_replace(["\'", "\"", "'", '"'], ["&#39;", "&quot;", "&#39;", "&quot;"], $str);
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('reduce_double_slashes')) {
-    /**
-     * Reduce Double Slashes
-     *
-     * Converts double slashes in a string to a single slash,
-     * except those found in http://
-     *
-     * http://www.some-site.com//index.php
-     *
-     * becomes:
-     *
-     * http://www.some-site.com/index.php
-     *
-     * @param string
-     *
-     * @return    string
-     */
-    function reduce_double_slashes($str): string
-    {
-        return preg_replace('#(^|[^:])//+#', '\\1/', $str);
-    }
+	/**
+	 * Reduce Double Slashes
+	 *
+	 * Converts double slashes in a string to a single slash,
+	 * except those found in http://
+	 *
+	 * http://www.some-site.com//index.php
+	 *
+	 * becomes:
+	 *
+	 * http://www.some-site.com/index.php
+	 *
+	 * @param string
+	 *
+	 * @return    string
+	 */
+	function reduce_double_slashes($str): string
+	{
+		return preg_replace('#(^|[^:])//+#', '\\1/', $str);
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('reduce_multiples')) {
-    /**
-     * Reduce Multiples
-     *
-     * Reduces multiple instances of a particular character.  Example:
-     *
-     * Fred, Bill,, Joe, Jimmy
-     *
-     * becomes:
-     *
-     * Fred, Bill, Joe, Jimmy
-     *
-     * @param string
-     * @param string    the character you wish to reduce
-     * @param bool    TRUE/FALSE - whether to trim the character from the beginning/end
-     *
-     * @return    string
-     */
-    function reduce_multiples($str, $character = ',', $trim = false): string
-    {
-        $str = preg_replace('#' . preg_quote($character, '#') . '{2,}#', $character, $str);
+	/**
+	 * Reduce Multiples
+	 *
+	 * Reduces multiple instances of a particular character.  Example:
+	 *
+	 * Fred, Bill,, Joe, Jimmy
+	 *
+	 * becomes:
+	 *
+	 * Fred, Bill, Joe, Jimmy
+	 *
+	 * @param string
+	 * @param string    the character you wish to reduce
+	 * @param bool    TRUE/FALSE - whether to trim the character from the beginning/end
+	 *
+	 * @return    string
+	 */
+	function reduce_multiples($str, $character = ',', $trim = false): string
+	{
+		$str = preg_replace('#' . preg_quote($character, '#') . '{2,}#', $character, $str);
 
-        return ($trim === true) ? trim($str, $character) : $str;
-    }
+		return ($trim === true) ? trim($str, $character) : $str;
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('random_string')) {
-    /**
-     * Creates a random string of characters
-     *
-     * From FuelPHP
-     *
-     * @param string $type   the type of string
-     * @param int    $length the number of characters
-     *
-     * @return  string  the random string
-     */
-    function random_string(string $type = 'alnum', int $length = 16)
-    {
-        switch ($type) {
-            case 'basic':
-                return mt_rand();
-                break;
+	/**
+	 * Creates a random string of characters
+	 *
+	 * From FuelPHP
+	 *
+	 * @param string $type the type of string
+	 * @param int $length the number of characters
+	 *
+	 * @return  string  the random string
+	 */
+	function random_string(string $type = 'alnum', int $length = 16)
+	{
+		switch ($type) {
+			case 'basic':
+				return mt_rand();
+				break;
 
-            default:
-            case 'alnum':
-            case 'numeric':
-            case 'nozero':
-            case 'alpha':
-            case 'distinct':
-            case 'hexdec':
-                switch ($type) {
-                    case 'alpha':
-                        $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        break;
+			default:
+			case 'alnum':
+			case 'numeric':
+			case 'nozero':
+			case 'alpha':
+			case 'distinct':
+			case 'hexdec':
+				switch ($type) {
+					case 'alpha':
+						$pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+						break;
 
-                    default:
-                    case 'alnum':
-                        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        break;
+					default:
+					case 'alnum':
+						$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+						break;
 
-                    case 'numeric':
-                        $pool = '0123456789';
-                        break;
+					case 'numeric':
+						$pool = '0123456789';
+						break;
 
-                    case 'nozero':
-                        $pool = '123456789';
-                        break;
+					case 'nozero':
+						$pool = '123456789';
+						break;
 
-                    case 'distinct':
-                        $pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
-                        break;
+					case 'distinct':
+						$pool = '2345679ACDEFHJKLMNPRSTUVWXYZ';
+						break;
 
-                    case 'hexdec':
-                        $pool = '0123456789abcdef';
-                        break;
-                }
+					case 'hexdec':
+						$pool = '0123456789abcdef';
+						break;
+				}
 
-                $str = '';
-                for ($i = 0; $i < $length; $i++) {
-                    $str .= mb_substr($pool, mt_rand(0, mb_strlen($pool) - 1), 1);
-                }
+				$str = '';
+				for ($i = 0; $i < $length; $i++) {
+					$str .= mb_substr($pool, mt_rand(0, mb_strlen($pool) - 1), 1);
+				}
 
-                return $str;
-                break;
+				return $str;
+				break;
 
-            case 'md5':
-            case 'unique':
-                return md5(uniqid(mt_rand(), true));
-                break;
-            case 'sha1' :
-                return sha1(uniqid(mt_rand(), true));
-                break;
-            case 'sha256' :
-                return hash('sha256', uniqid(mt_rand(), true));
-                break;
-            case 'sha384' :
-                return hash('sha384', uniqid(mt_rand(), true));
-                break;
-            case 'sha512' :
-                return hash('sha512', uniqid(mt_rand(), true));
-                break;
-            case 'whirlpool' :
-                return hash('whirlpool', uniqid(mt_rand(), true));
-                break;
-            case 'uuid':
-                $pool = array('8', '9', 'a', 'b');
+			case 'md5':
+			case 'unique':
+				return md5(uniqid(mt_rand(), true));
+				break;
+			case 'base64':
+				return base64_encode(md5(uniqid(mt_rand(), true)));
+				break;
+			case 'sha1' :
+				return sha1(uniqid(mt_rand(), true));
+				break;
+			case 'sha256' :
+				return hash('sha256', uniqid(mt_rand(), true));
+				break;
+			case 'sha384' :
+				return hash('sha384', uniqid(mt_rand(), true));
+				break;
+			case 'sha512' :
+				return hash('sha512', uniqid(mt_rand(), true));
+				break;
+			case 'whirlpool' :
+				return hash('whirlpool', uniqid(mt_rand(), true));
+				break;
+			case 'uuid':
+				$pool = array('8', '9', 'a', 'b');
 
-                return sprintf('%s-%s-4%s-%s%s-%s',
-                               random_string('hexdec', 8),
-                               random_string('hexdec', 4),
-                               random_string('hexdec', 3),
-                               $pool[array_rand($pool)],
-                               random_string('hexdec', 3),
-                               random_string('hexdec', 12)
-                );
-                break;
-            case 'binary':
-                if (function_exists('random_bytes')) {
-                    try {
-                        return random_bytes($length);
-                    }catch (\Exception $exception){
-                        return null;
-                    }
-                } else {
-                    return null;
-                }
-                break;
-            case 'hex':
-            case 'crypto':
-                if ($length % 2 !== 0) {
-                    throw new InvalidArgumentException('You must set an even number to the second parameter when you use `crypto`.');
-                }
-                if (function_exists('random_bytes')) {
-                    try {
-                        return bin2hex(random_bytes($length / 2));
-                    }catch (\Exception $exception){
-                        return null;
-                    }
-                } else {
-                    return null;
-                }
-                break;
-        }
-    }
+				return sprintf('%s-%s-4%s-%s%s-%s',
+					random_string('hexdec', 8),
+					random_string('hexdec', 4),
+					random_string('hexdec', 3),
+					$pool[array_rand($pool)],
+					random_string('hexdec', 3),
+					random_string('hexdec', 12)
+				);
+				break;
+			case 'binary':
+				if (function_exists('random_bytes')) {
+					try {
+						return random_bytes($length);
+					} catch (\Exception $exception) {
+						return null;
+					}
+				} else {
+					return null;
+				}
+				break;
+			case 'hex':
+			case 'crypto':
+				if ($length % 2 !== 0) {
+					throw new InvalidArgumentException('You must set an even number to the second parameter when you use `crypto`.');
+				}
+				if (function_exists('random_bytes')) {
+					try {
+						return bin2hex(random_bytes($length / 2));
+					} catch (\Exception $exception) {
+						return null;
+					}
+				} else {
+					return null;
+				}
+				break;
+		}
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('increment_string')) {
-    /**
-     * Add's _1 to a string or increment the ending number to allow _2, _3, etc
-     *
-     * @param string     $str       required
-     * @param string     $separator What should the duplicate number be appended with
-     * @param string|int $first     Which number should be used for the first dupe increment
-     *
-     * @return    string
-     */
-    function increment_string(string $str, string $separator = '_', $first = 1): string
-    {
-        preg_match('/(.+)' . preg_quote($separator, '/') . '([0-9]+)$/', $str, $match);
+	/**
+	 * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+	 *
+	 * @param string $str required
+	 * @param string $separator What should the duplicate number be appended with
+	 * @param string|int $first Which number should be used for the first dupe increment
+	 *
+	 * @return    string
+	 */
+	function increment_string(string $str, string $separator = '_', $first = 1): string
+	{
+		preg_match('/(.+)' . preg_quote($separator, '/') . '([0-9]+)$/', $str, $match);
 
-        return isset($match[2]) ? $match[1] . $separator . ($match[2] + 1) : $str . $separator . $first;
-    }
+		return isset($match[2]) ? $match[1] . $separator . ($match[2] + 1) : $str . $separator . $first;
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('alternator')) {
-    /**
-     * Alternator
-     *
-     * Allows strings to be alternated. See docs...
-     *
-     * @param string (as many parameters as needed)
-     *
-     * @return    string
-     */
-    function alternator(): string
-    {
-        static $i;
+	/**
+	 * Alternator
+	 *
+	 * Allows strings to be alternated. See docs...
+	 *
+	 * @param string (as many parameters as needed)
+	 *
+	 * @return    string
+	 */
+	function alternator(): string
+	{
+		static $i;
 
-        if (func_num_args() === 0) {
-            $i = 0;
+		if (func_num_args() === 0) {
+			$i = 0;
 
-            return '';
-        }
+			return '';
+		}
 
-        $args = func_get_args();
+		$args = func_get_args();
 
-        return $args[($i++ % count($args))];
-    }
+		return $args[($i++ % count($args))];
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('repeater')) {
-    /**
-     * Repeater function
-     *
-     * @todo          Remove in version 3.1+.
-     * @deprecated    3.0.0    This is just an alias for PHP's native str_repeat()
-     *
-     * @param string $data String to repeat
-     * @param int    $num  Number of repeats
-     *
-     * @return    string
-     */
-    function repeater(string $data, int $num = 1): string
-    {
-        return ($num > 0) ? str_repeat($data, $num) : '';
-    }
+	/**
+	 * Repeater function
+	 *
+	 * @param string $data String to repeat
+	 * @param int $num Number of repeats
+	 *
+	 * @return    string
+	 * @deprecated    3.0.0    This is just an alias for PHP's native str_repeat()
+	 *
+	 * @todo          Remove in version 3.1+.
+	 */
+	function repeater(string $data, int $num = 1): string
+	{
+		return ($num > 0) ? str_repeat($data, $num) : '';
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('remove_invisible_characters_string')) {
-    /**
-     * Remove Invisible Characters
-     *
-     * This prevents sandwiching null characters
-     * between ascii characters, like Java\0script.
-     *
-     * @param string
-     * @param bool
-     *
-     * @return    string
-     */
-    function remove_invisible_characters_string($str, $url_encoded = true): string
-    {
-        $nonDisplay = array();
-        // every control character except newline (dec 10),
-        // carriage return (dec 13) and horizontal tab (dec 09)
-        if ($url_encoded) {
-            $nonDisplay[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
-            $nonDisplay[] = '/%1[0-9a-f]/i';    // url encoded 16-31
-            $nonDisplay[] = '/%7f/i';    // url encoded 127
-        }
-        $nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
-        do {
-            $str = preg_replace($nonDisplay, '', $str, -1, $count);
-        }
-        while ($count);
+	/**
+	 * Remove Invisible Characters
+	 *
+	 * This prevents sandwiching null characters
+	 * between ascii characters, like Java\0script.
+	 *
+	 * @param string
+	 * @param bool
+	 *
+	 * @return    string
+	 */
+	function remove_invisible_characters_string($str, $url_encoded = true): string
+	{
+		$nonDisplay = array();
+		// every control character except newline (dec 10),
+		// carriage return (dec 13) and horizontal tab (dec 09)
+		if ($url_encoded) {
+			$nonDisplay[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
+			$nonDisplay[] = '/%1[0-9a-f]/i';    // url encoded 16-31
+			$nonDisplay[] = '/%7f/i';    // url encoded 127
+		}
+		$nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
+		do {
+			$str = preg_replace($nonDisplay, '', $str, -1, $count);
+		} while ($count);
 
-        return $str;
-    }
+		return $str;
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('starts_with')) {
-    /**
-     * Checks whether a string has a precific beginning.
-     *
-     * @param string  $str         string to check
-     * @param string  $start       beginning to check for
-     * @param boolean $ignore_case whether to ignore the case
-     *
-     * @return  boolean  whether a string starts with a specified beginning
-     */
-    function starts_with(string $str, string $start, bool $ignore_case = false): bool
-    {
-        return (bool) preg_match('/^' . preg_quote($start, '/') . '/m' . ($ignore_case ? 'i' : ''), $str);
-    }
+	/**
+	 * Checks whether a string has a precific beginning.
+	 *
+	 * @param string $str string to check
+	 * @param string $start beginning to check for
+	 * @param boolean $ignore_case whether to ignore the case
+	 *
+	 * @return  boolean  whether a string starts with a specified beginning
+	 */
+	function starts_with(string $str, string $start, bool $ignore_case = false): bool
+	{
+		return (bool)preg_match('/^' . preg_quote($start, '/') . '/m' . ($ignore_case ? 'i' : ''), $str);
+	}
 }
 
 // ------------------------------------------------------------------------
 
 if (!function_exists('ends_with')) {
-    /**
-     * Checks whether a string has a precific ending.
-     *
-     * @param string  $str         string to check
-     * @param string  $end         ending to check for
-     * @param boolean $ignore_case whether to ignore the case
-     *
-     * @return  boolean  whether a string ends with a specified ending
-     */
-    function ends_with(string $str, string $end, bool $ignore_case = false): bool
-    {
-        return (bool) preg_match('/' . preg_quote($end, '/') . '$/m' . ($ignore_case ? 'i' : ''), $str);
-    }
+	/**
+	 * Checks whether a string has a precific ending.
+	 *
+	 * @param string $str string to check
+	 * @param string $end ending to check for
+	 * @param boolean $ignore_case whether to ignore the case
+	 *
+	 * @return  boolean  whether a string ends with a specified ending
+	 */
+	function ends_with(string $str, string $end, bool $ignore_case = false): bool
+	{
+		return (bool)preg_match('/' . preg_quote($end, '/') . '$/m' . ($ignore_case ? 'i' : ''), $str);
+	}
 }
