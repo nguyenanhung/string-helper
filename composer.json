@@ -1,41 +1,41 @@
 {
-    "type": "library",
-    "name": "nguyenanhung/string-helper",
-    "description": "String Helper, basic, simple and light",
-    "keywords": [
-        "helper",
-        "string",
-        "php"
-    ],
-    "homepage": "https://github.com/nguyenanhung/string-helper",
-    "license": "MIT",
-    "minimum-stability": "stable",
-    "authors": [
-        {
-            "name": "Nguyen An Hung",
-            "email": "dev@nguyenanhung.com",
-            "homepage": "https://nguyenanhung.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=7.0",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "ext-mbstring": "*",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
-        "ext-libxml": "*",
-        "ext-simplexml": "*",
-        "paragonie/random_compat": ">=2.0",
-        "danielstjules/stringy": "^3.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "nguyenanhung\\Libraries\\String\\": "src/"
-        },
-        "files": [
-            "helpers/ci_string_helper.php"
-        ]
-    }
+	"type": "library",
+	"name": "nguyenanhung/string-helper",
+	"description": "String Helper, basic, simple and light",
+	"keywords": [
+		"helper",
+		"string",
+		"php"
+	],
+	"homepage": "https://github.com/nguyenanhung/string-helper",
+	"license": "MIT",
+	"minimum-stability": "stable",
+	"authors": [
+		{
+			"name": "Nguyen An Hung",
+			"email": "dev@nguyenanhung.com",
+			"homepage": "https://nguyenanhung.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=7.0",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"ext-mbstring": "*",
+		"ext-ctype": "*",
+		"ext-iconv": "*",
+		"ext-libxml": "*",
+		"ext-simplexml": "*",
+		"paragonie/random_compat": ">=2.0",
+		"danielstjules/stringy": "^3.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"nguyenanhung\\Libraries\\String\\": "src/"
+		},
+		"files": [
+			"helpers/ci_string_helper.php"
+		]
+	}
 }
